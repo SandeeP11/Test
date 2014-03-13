@@ -1,0 +1,80 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Complex icons</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+
+function initialize() {
+  var mapOptions = {
+    zoom: 10,
+    center: new google.maps.LatLng(16.69877, 74.10819)
+  }
+  var map = new google.maps.Map(document.getElementById('map-canvas'),
+                                mapOptions);
+
+  setMarkers(map, koparde);
+}
+
+var koparde = [
+  ['Grampanchyat Koparde', 16.69877, 74.10819, 4],
+  ['Wrestling Ground', 16.69866, 74.10829, 5],
+  ['hanumaan Temple', 16.69841, 74.10832, 3],
+  ['Baalwadi', 16.69867, 74.10847, 2],
+  ['Dont Know', 16.69870, 74.10870, 1]
+];
+
+function setMarkers(map, locations) {
+  
+  var image = {
+    url: 'markericon1.png',
+    
+    size: new google.maps.Size(32, 37),
+    // The origin for this image is 0,0.
+    origin: new google.maps.Point(0,0),
+    
+    anchor: new google.maps.Point(0, 37)
+  };
+  
+  
+  
+  var shape = {
+      coord: [1, 1, 1, 20, 18, 20, 18 , 1],
+      type: 'poly'
+  };
+  for (var i = 0; i < locations.length; i++) {
+    var kop = locations[i];
+    var myLatLng = new google.maps.LatLng(kop[1], kop[2]);
+    
+	
+	var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        icon: image,
+        shape: shape,
+        title: kop[0],
+        zIndex: kop[3]
+    });
+  }
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+  </body>
+</html>
+
